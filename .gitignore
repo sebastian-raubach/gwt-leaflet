@@ -1,0 +1,14 @@
+/.idea/
+/out/
+/bin/
+/war/WEB-INF/classes/
+
+# Package Files #
+/*.jar
+/*.war
+
+# gwt caches and compiled units #
+gwt-unitCache/
+
+# boilerplate generated classes #
+.apt_generated/

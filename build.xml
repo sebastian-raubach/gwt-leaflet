@@ -1,0 +1,70 @@
+<!--
+  ~  Copyright 2017 Sebastian Raubach from the Information
+  ~  and Computational Sciences Group at JHI Dundee
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<project name="gwt-leaflet" basedir="." default="clean-build">
+
+	<property name="src.dir" value="src"/>
+
+	<!-- Define the necessary paths -->
+	<property name="lib.dir" value="lib"/>
+	<property name="classes.dir" value="bin"/>
+
+	<!-- Define the class path -->
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+
+	<!-- Clean previously built files -->
+	<target name="clean">
+		<delete dir="${classes.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+	</target>
+
+	<!-- Compile the project -->
+	<target name="compile">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false" encoding="utf-8" source="7"
+			   target="7"/>
+	</target>
+
+	<!-- Create the jar files -->
+	<target name="jar" depends="compile">
+		<jar destfile="${ant.project.name}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Class-Path" value="./ ${classpath}"/>
+			</manifest>
+
+			<!-- Include the licence -->
+			<zipfileset dir="${basedir}" includes="LICENCE.txt"/>
+		</jar>
+	</target>
+
+	<target name="jar-gwt" depends="compile">
+		<jar destfile="${ant.project.name}-gwt.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Class-Path" value="./ ${classpath}"/>
+			</manifest>
+
+			<fileset dir="${src.dir}" includes="**/*.java"/>
+			<fileset dir="${src.dir}" includes="**/*.gwt.xml"/>
+
+			<!-- Include the licence -->
+			<zipfileset dir="${basedir}" includes="LICENCE.txt"/>
+		</jar>
+	</target>
+
+	<target name="clean-build" depends="clean, jar, jar-gwt"/>
+</project>
