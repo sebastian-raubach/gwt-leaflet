@@ -49,7 +49,6 @@ public class LeafletDraw extends JavaScriptObject implements LeafletControl
 				marker: false,
 				polygon: {
 					allowIntersection: false,
-					repeatMode: true,
 					drawError: {
 						color: '#c0392b'
 					}
