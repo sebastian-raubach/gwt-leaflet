@@ -72,14 +72,16 @@ public class LeafletDraw extends JavaScriptObject implements LeafletControl
 		return {draw: result, layers: editableLayers};
 	}-*/;
 
-	public final native JsArray<LeafletLatLng> getPolygon() /*-{
+	public final native int getPolygonCount() /*-{
+		return this.layers.getLayers().length;
+	}-*/;
+
+	public final native JsArray<LeafletLatLng> getPolygon(int index) /*-{
 		var polygon = [];
 
-		this.layers.eachLayer(function (layer) {
-			var latLngs = layer.getLatLngs()[0];
-			for (var i = 0; i < latLngs.length; i++)
-				polygon.push(latLngs[i]);
-		});
+		var latLngs = this.layers.getLayers()[index].getLatLngs()[0];
+		for (var i = 0; i < latLngs.length; i++)
+			polygon.push(latLngs[i]);
 
 		return polygon;
 	}-*/;
