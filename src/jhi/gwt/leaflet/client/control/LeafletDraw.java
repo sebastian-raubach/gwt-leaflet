@@ -49,6 +49,7 @@ public class LeafletDraw extends JavaScriptObject implements LeafletControl
 				marker: false,
 				polygon: {
 					allowIntersection: false,
+					repeatMode: true,
 					drawError: {
 						color: '#c0392b'
 					}
@@ -66,7 +67,6 @@ public class LeafletDraw extends JavaScriptObject implements LeafletControl
 		map.on($wnd.L.Draw.Event.CREATED, function (e) {
 			var layer = e.layer;
 
-			editableLayers.clearLayers();
 			editableLayers.addLayer(layer);
 		});
 
